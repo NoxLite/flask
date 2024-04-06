@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Запись от {{user.name}}</h1>
+<h1>{{post.title}}</h1>
+<div>
+    {{post.content}}
+</div>
+<div>
+    Лайков {{post.likes}}
+</div>
+{% if typeuser != "void" %}
+<form action="" method="post" novalidate>
+        <div>
+            {{ form.csrf_token }}
+        </div>
+        {% for field in form if field.name != 'csrf_token' %}
+            <div>
+                {{ field() }}
+                {% for error in field.errors %}
+                    <div class="error">{{ error }}</div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+</form>
+<h2>Комментарии</h2>
+{% for elem in comments %}
+<div class="comment-post">
+    <a href={{elem.get_user_link()}}>{{elem.get_user_name()}}</a>
+    <div>
+        {{elem.text}}
+    </div>
+</div>
+{% endfor %}
+{% else %}
+<h2>Зарегистрируйся, чтобы оставлять комментарии и лайки!</h2>
+{% endif %}
+{% endblock %}

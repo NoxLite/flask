@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/static/styles/base.css">
+</head>
+<body>
+<div>
+    <h1 class="logo">Sova</h1>
+    {% if typeuser == "void" %}
+        <a href="/register" class="user">Регистрация</a>
+        <a href="/login" class="user">Логин</a>
+    {% else %}
+        <a href={{link_user}} class="user">{{username}}</a>
+    {% endif %}
+</div>
+<!-- Begin page content -->
+<main role="main" class="container">
+    {% block content %}
+    {% endblock %}
+</main>
+</body>
+</html>

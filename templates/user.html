@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if another_typeuser == 'admin' %}
+        <h1>{{username}} (Админ)</h1>
+    {% else %}
+        <h1>{{username}}</h1>
+    {% endif %}
+    <h1>Последние записи</h1>
+    {% for elem in post[:3] %}
+        <div class="user-posts">
+            <h2>{{elem.title}}</h2>
+            <p>{{elem.content}}</p>
+            <p>{{elem.created_date}}</p>
+            <a href={{elem.post_link}}>Подробнее</a>
+        </div>
+    {% endfor %}
+    <a href="all_posts">Все посты</a>
+
+{% endblock %}

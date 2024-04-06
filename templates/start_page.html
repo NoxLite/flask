@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Записи в блоге</h1>
+{% if typeuser != "void" %}
+<div class="start-posts">
+    <a href="/add_news" style="">Добавить новость</a>
+</div>
+{% endif %}
+{% for item in news%}
+{% if item.user.id != 1 %}
+<div class="start-posts">
+    <a href={{item.user_link}}>{{item.user.name}}</a>
+    <h2>{{item.title}}</h2>
+    <p>
+        {{item.content}}
+    </p>
+    <p>
+        Дата написания - {{item.created_date}}
+    </p>
+    <a href={{item.post_link}}>Подробнее</a>
+</div>
+{% endif %}
+{% endfor %}
+{% endblock %}
