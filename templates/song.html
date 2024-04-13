@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+<img src="{{song.cover}}" onerror="this.src='/static/inf/covers/classic.png'" width="200" height="200" >
+<h1>{{song.title}}</h1>
+<h2>{{author}}</h2>
+{% endblock %}

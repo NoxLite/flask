@@ -23,5 +23,9 @@ class CommentForm(flask_wtf.FlaskForm):
     public_comment = SubmitField('Оставить')
     like = SubmitField('Понравилось')
 
+class AddSong(flask_wtf.FlaskForm):
+    title = StringField('Название', validators=[DataRequired()])
+    update = SubmitField('Обновить')
+    public = SubmitField('Опубликовать')
 
 

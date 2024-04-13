@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<img src={{imag}} onerror="this.src='/static/inf/covers/classic.png'" width="200" height="200">
+<p>{{form.title.label}}</p>
+{{ form.hidden_tag() }}
+<h3>Загрузи обложку</h3>
+<form method="post" enctype="multipart/form-data">
+    {{form.title}}
+    <div class="add-song-add-cover">
+        <input type="file" class="form-control-file" id="photo" name="file" accept="image/png,image/jpeg">
+    </div>
+    {{form.update}}
+    {{form.public}}
+</form>
+{% endblock %}

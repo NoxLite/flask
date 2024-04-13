@@ -1,4 +1,5 @@
 .logo {color: blue;}
+
 .user-posts {width: 15em;
   height: 15em;
   border: 1px solid #333;
@@ -8,18 +9,46 @@
   display: inline-block;
   vertical-align: top;
 }
-.start-posts {height: 16em;
+
+.start-post {height: 16em;
   border: 1px solid #333;
-  box-shadow: 8px 8px 5px #444;
   padding: 8px 12px;
   background-image: linear-gradient(180deg, #fff, #ddd 40%, #ccc);
   display: inline-block;
   vertical-align: top;
+  transition: box-shadow 0.1s ease-in;
   width: 15%}
+
+.start-post:hover {
+  box-shadow: 8px 8px 5px #444;
+}
+.start-song {
+  height: 16em;
+  border: 1px solid #333;
+  padding: 8px 12px;
+  background-image: linear-gradient(180deg, #fff, #ddd 40%, #ccc);
+  vertical-align: top;
+  display: inline-block;
+  transition: box-shadow 0.1s ease-in;
+  width: 15%
+}
+.start-song:hover {
+box-shadow: 8px 8px 5px #444;
+}
 .comment-post{
 height: 4em;
 border: 1px solid #333;
 box-shadow: 8px 8px 5px #444;
 padding: 8px 12px;
 background-image: linear-gradient(180deg, #fff, #ddd 40%, #ccc);
+}
+
+.start-add-news{
+position: relative
+font-family: 'Roboto', 'Helvetica Nue', sans-serif;
+font-size: 24px
+}
+
+.post-liked{
+background-color: red;
 }

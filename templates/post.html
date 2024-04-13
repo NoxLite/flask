@@ -11,17 +11,14 @@
 </div>
 {% if typeuser != "void" %}
 <form action="" method="post" novalidate>
-        <div>
-            {{ form.csrf_token }}
-        </div>
-        {% for field in form if field.name != 'csrf_token' %}
-            <div>
-                {{ field() }}
-                {% for error in field.errors %}
-                    <div class="error">{{ error }}</div>
-                {% endfor %}
-            </div>
-        {% endfor %}
+    {{ form.hidden_tag() }}
+    {% if form.like.label.text == 'Нравится' %}
+        {{ form.like(class='post-liked') }}
+    {% else %}
+        {{ form.like(class='post-like') }}
+    {% endif %}
+    {{ form.comment }}
+    {{ form.public_comment }}
 </form>
 <h2>Комментарии</h2>
 {% for elem in comments %}
