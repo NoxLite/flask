@@ -4,9 +4,6 @@ from data.user import User
 import datetime
 from data import db_session
 from .db_session import SqlAlchemyBase
-db_session.global_init('db/sova.db')
-db_sess = db_session.create_session()
-
 
 class Comments(SqlAlchemyBase):
     __tablename__ = 'comments'
@@ -18,8 +15,5 @@ class Comments(SqlAlchemyBase):
     created_date = sqlalchemy.Column(sqlalchemy.DateTime,
                                      default=datetime.datetime.now)
 
-    def get_user_name(self):
-        return db_sess.query(User).filter(User.id == self.user_id).first().name
-
     def get_user_link(self):
-        return f'/profile/{self.user_id}'
+        return f'/profile/{self.user_id}/head'

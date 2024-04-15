@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% if another_typeuser == 'admin' %}
-        <h1>{{username}} (Админ)</h1>
+
+<p style="display: flex;justify-content: center;"><img src={{user.avatar}} width="150px" height="150px" class="avatar"></p>
+    {% if user.type_user == 'admin' %}
+        <h1 style="display: flex;justify-content: center;">{{user.name}} (Админ)</h1>
     {% else %}
-        <h1>{{username}}</h1>
+        <h1 style="display: flex;justify-content: center;">{{user.name}}</h1>
     {% endif %}
-    <h1>Последние записи</h1>
+<h3 style="display: flex;justify-content: center;">{{user.about}}</h3>
+    <h1 style="display: flex;justify-content: center;">Последние записи</h1>
     {% for elem in post[:3] %}
         <div class="user-posts">
             <h2>{{elem.title}}</h2>
@@ -15,6 +18,7 @@
             <a href={{elem.post_link}}>Подробнее</a>
         </div>
     {% endfor %}
-    <a href="all_posts">Все посты</a>
-
+<br>
+    <a href="all_posts">Все посты</a><br>
+<a href="/logout">Выход</a>
 {% endblock %}

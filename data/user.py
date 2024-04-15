@@ -15,11 +15,11 @@ class User(SqlAlchemyBase, UserMixin):
     about = sqlalchemy.Column(sqlalchemy.String, nullable=True, default='No bio yet')
     email = sqlalchemy.Column(sqlalchemy.String,
                               index=True, unique=True, nullable=True)
+    avatar = sqlalchemy.Column(sqlalchemy.String, default='/static/inf/avatars/classic_avatar.png')
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     created_date = sqlalchemy.Column(sqlalchemy.DateTime,
                                      default=datetime.datetime.now)
     type_user = sqlalchemy.Column(sqlalchemy.String, default='justuser')
-
     posts = orm.relationship("Posts", back_populates='user')
 
     def set_password(self, password):

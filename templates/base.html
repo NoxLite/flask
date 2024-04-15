@@ -6,20 +6,23 @@
     <link rel="stylesheet" href="/static/styles/base.css">
 </head>
 <body>
-<div>
-    <h1 class="logo">Sova</h1>
-    {% if typeuser == "void" %}
-        <a href="/register" class="user">Регистрация</a>
-        <a href="/login" class="user">Логин</a>
-    {% else %}
-        <a href={{link_user}} class="user">{{username}}</a>
-    {% endif %}
-
+<header class="head">
+{% if current_user == None %}
+<div class="base-top">
+    <a href="/register" class="user">Регистрация</a>
+    <a href="/login" class="user">Логин</a>
 </div>
-<!-- Begin page content -->
+<h1>Зарегистрируйся, чтобы пользоваться нашим сервисом!</h1>
+{% else %}
+<div class="base-top">
+    <a href="/my_profile" class="user">Мой профиль</a>
+    <a href="/">Главная</a>
+</div>
+</header>
 <main role="main" class="container">
     {% block content %}
     {% endblock %}
+{% endif %}
 </main>
 </body>
 </html>

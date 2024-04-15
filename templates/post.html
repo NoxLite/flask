@@ -11,21 +11,22 @@
 </div>
 {% if typeuser != "void" %}
 <form action="" method="post" novalidate>
-    {{ form.hidden_tag() }}
     {% if form.like.label.text == 'Нравится' %}
         {{ form.like(class='post-liked') }}
     {% else %}
         {{ form.like(class='post-like') }}
     {% endif %}
-    {{ form.comment }}
-    {{ form.public_comment }}
+    <a href="comment">Прокомментировать</a>
 </form>
 <h2>Комментарии</h2>
-{% for elem in comments %}
+{% for elem in comments[::-1] %}
 <div class="comment-post">
-    <a href={{elem.get_user_link()}}>{{elem.get_user_name()}}</a>
+    <div style="display: flex; align-items: center;">
+        <img src={{get_avatar(elem.user_id)}} width="50px" height="50px" class="avatar">
+        <a href={{elem.get_user_link()}} style="margin-left: 20px">{{get_author(elem.user_id)}}</a>
+    </div>
     <div>
-        {{elem.text}}
+        <p style="word-wrap: break-word">{{elem.text[:400]}}</p>
     </div>
 </div>
 {% endfor %}

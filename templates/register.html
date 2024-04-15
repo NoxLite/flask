@@ -1,6 +1,11 @@
-{% extends "base.html" %}
-
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/static/styles/base.css">
+</head>
+<body>
 <h1>Регистрация</h1>
 <form action="" method="post">
     {{ form.hidden_tag() }}
@@ -43,4 +48,4 @@
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
     {{message}}
 </form>
-{% endblock %}
+</body>

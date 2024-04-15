@@ -12,6 +12,6 @@ class Song(SqlAlchemyBase):
     user_id = sqlalchemy.Column(sqlalchemy.Integer,
                                 sqlalchemy.ForeignKey("users.id"))
     user_link = sqlalchemy.Column(sqlalchemy.String)
-    cover = sqlalchemy.Column(sqlalchemy.String, default='static/inf/covers/classic.png')
+    cover = sqlalchemy.Column(sqlalchemy.String, default='pipstatic/inf/covers/classic.png')
     likes = sqlalchemy.Column(sqlalchemy.Integer)
     user = orm.relationship('User')
