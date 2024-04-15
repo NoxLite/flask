@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Оставь комментарий к этой записи!</h1>
+<form method="post">
+    {{ form.comment }}<br>
+    {{ form.public_comment}}
+    </form>
+
+{% endblock %}
