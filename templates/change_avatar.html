@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<img src={{img}} onerror="this.src='/static/inf/avatars/classic_avatar.png'" width="200" height="200">
+<form method="post" enctype="multipart/form-data">
+        <input type="file" class="form-control-file" id="photo" name="file" accept="image/png,image/jpeg">
+            <br>
+            {{form.update}}
+            <br>
+            {{form.public}}
+</form>
+{% endblock %}

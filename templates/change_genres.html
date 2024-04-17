@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h1>Выбери наиболее жанры, которые тебе нравятся!</h1>
+<form method="post">
+    {% for elem in genres %}
+    {% if elem.id in taste %}
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="genre" id={{taste[taste.index(elem.id)]}} value={{elem.id}} checked>
+        <label class="form-check-label" for={{elem.id}}>{{elem.name}}</label>
+    </div>
+    {% else %}
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="genre" id={{elem.id}} value={{elem.id}}>
+        <label class="form-check-label" for={{elem.id}}>{{elem.name}}</label>
+    </div>
+    {% endif %}
+    {% endfor %}
+    <br>{{form.public}}
+
+</form>
+{% endblock %}

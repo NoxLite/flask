@@ -8,13 +8,13 @@
 <body>
 <header class="head">
 {% if current_user == None %}
-<div class="base-top">
+<div class="base-top" style="margin: 20px">
     <a href="/register" class="user">Регистрация</a>
     <a href="/login" class="user">Логин</a>
 </div>
 <h1>Зарегистрируйся, чтобы пользоваться нашим сервисом!</h1>
 {% else %}
-<div class="base-top">
+<div class="base-top" style="margin: 20px">
     <a href="/my_profile" class="user">Мой профиль</a>
     <a href="/">Главная</a>
 </div>

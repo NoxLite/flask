@@ -19,6 +19,7 @@ class User(SqlAlchemyBase, UserMixin):
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     created_date = sqlalchemy.Column(sqlalchemy.DateTime,
                                      default=datetime.datetime.now)
+    genres = sqlalchemy.Column(sqlalchemy.String)
     type_user = sqlalchemy.Column(sqlalchemy.String, default='justuser')
     posts = orm.relationship("Posts", back_populates='user')
 

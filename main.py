@@ -1,15 +1,16 @@
-from flask import render_template, redirect, request, make_response, session
+from flask import render_template, redirect, request, make_response, session, jsonify
 import flask
 from data.user import User
 from data.likes import Likes
 from data.posts import Posts
+from data.genres import Genre
 from data.forms import LoginForm, RegisterForm, CommentForm, AddSong
 from data.comments import Comments
 from data.song import Song
 from data import db_session
 from flask_login import LoginManager, login_user, login_required, logout_user
 from forms.news import NewsForm
-import datetime
+import datetime, os
 from wtforms import SubmitField
 
 db_session.global_init("db/sova.db")
@@ -23,7 +24,7 @@ username = None
 login_manager = LoginManager()
 login_manager.init_app(app)
 img = None
-
+img_ava = None
 
 def get_user_from_session():
     try:
@@ -76,7 +77,7 @@ def login():
     if form.validate_on_submit():
         user = db_sess.query(User).filter(User.email == str(form.email.data)).first()
         if user and user.check_password(form.password.data):
-            login_user(user, remember=form.remember_me.data)
+            login_user(user)
             current_user = user
             username = user.name
             userid = user.id
@@ -108,22 +109,63 @@ def register():
             email=form.email.data
         )
         user.set_password(form.password.data)
+        if form.about.data != '':
+            user.about = form.about.data
         db_sess.add(user)
         db_sess.commit()
         return redirect('/login')
     return render_template('register.html', title='Регистрация', form=form)
 
 
-@app.route('/profile/<id_user>/<mode>')
+@app.route('/profile/<id_user>/<mode>', methods=['GET', 'POST'])
 def page_of_user(id_user, mode):
+    global img_ava
     current_user, userid, username = get_user_from_session()
     user = db_sess.query(User).filter(User.id == int(id_user)).first()
     post = db_sess.query(Posts).filter(Posts.user_id == int(id_user))
+    try:
+        taste = list(map(int, user.genres.split(';')))
+    except Exception:
+        taste = []
     if mode == 'head':
-        return render_template('user.html', typeuser=current_user.type_user, link_user=f'/profile/{userid}/head',
+        return render_template('user.html', current_user=current_user, link_user=f'/profile/{userid}/head',
                                user=user, post=post)
     if mode == 'all_posts':
         return render_template('user_posts.html', current_user=current_user, post=post)
+    if mode == 'change-image' and current_user.id == user.id:
+        form = AddSong()
+        if not img_ava:
+            img_ava = '/static/inf/avatars/classic_avatar.png'
+        if request.method == 'POST':
+            if form.public.data:
+                with open(f'static/inf/avatars/{id_user}_prom.png', 'rb') as f:
+                    with open(f'static/inf/avatars/{id_user}.png', 'wb') as n:
+                        n.write(f.read())
+                os.remove(f'static/inf/avatars/{id_user}_prom.png')
+                img_ava = f'/static/inf/avatars/{id_user}.png'
+                user.avatar = img_ava
+                db_sess.commit()
+                img_ava = None
+                return redirect(f'/profile/{id_user}/head')
+            if form.update.data:
+                with open(f'static/inf/avatars/{id_user}_prom.png', 'wb') as f:
+                    f.write(request.files['file'].read())
+                img_ava = f'/static/inf/avatars/{id_user}_prom.png'
+        return render_template('change_avatar.html', current_user=current_user, img=img_ava, form=form)
+    elif mode == 'change-genres' and current_user.id == user.id:
+        genres = db_sess.query(Genre).all()
+        form = AddSong()
+        if form.public.data:
+            for elem in request.form.lists():
+                if 'genre' in elem:
+                    taste = elem[1]
+                    user.genres = ';'.join(taste)
+                    db_sess.commit()
+            taste = list(map(int, taste))
+            return redirect(f'/profile/{id_user}/head')
+        return render_template('change_genres.html', genres=genres, form=form, taste=taste)
+    else:
+        return redirect(f'/profile/{id_user}/head')
 
 
 @app.route('/add_news', methods=['GET', 'POST'])
@@ -196,15 +238,17 @@ def song(song_id):
     current_user, userid, username = get_user_from_session()
     song = db_sess.query(Song).filter(Song.id == int(song_id)).first()
     author = db_sess.query(User).filter(User.id == int(song.user_id)).first()
-    return render_template('song.html', current_user=current_user, song=song, author=author.name)
+    genres = db_sess.query(Genre)
+    return render_template('song.html', current_user=current_user, song=song, author=author.name, get_genre_name=get_genre_name)
 
 
 @app.route('/add_song', methods=['GET', 'POST'])
 @login_required
-def add_song():
+def add_song(genre=1):
     global img
     current_user, userid, username = get_user_from_session()
     form = AddSong()
+    genres = db_sess.query(Genre)
     if not img:
         img = r'/static/inf/covers/classic.png'
     id_s = len(list(db_sess.query(Song).filter(Song.user_id == current_user.id))) + 1
@@ -214,9 +258,11 @@ def add_song():
             with open(f'static/inf/covers/{current_user.id}_{id_s}_song.png', 'wb') as image:
                 image.write(f.read())
             img = f'/static/inf/covers/{current_user.id}_{id_s}_song.png'
+            genre = int(request.form.get('genre'))
         elif form.public.data:
             if form.title.data != '':
                 song = Song()
+                song.genre = int(request.form.get('genre'))
                 song.title = form.title.data
                 song.user_id = current_user.id
                 song.user_link = f'/profile/{current_user.id}/head'
@@ -226,7 +272,7 @@ def add_song():
                 db_sess.commit()
                 img = None
                 return redirect(f'/')
-    return render_template('add_song.html', current_user=current_user, form=form, imag=img)
+    return render_template('add_song.html', current_user=current_user, form=form, imag=img, genres=genres, choosed=genre)
 
 
 def get_song():
@@ -239,22 +285,35 @@ def redirect_my_profile():
     link = f'/profile/{current_user.id}/head'
     return redirect(link)
 
+
 def get_post():
     post = list(db_sess.query(Posts))[:-5:-1]
     return post
+
 
 def get_author(id):
     user = db_sess.query(User).filter(User.id == int(id)).first()
     return user.name
 
+
 def get_avatar(id):
     user = db_sess.query(User).filter(User.id == int(id)).first()
     return user.avatar
+
 
 @app.route("/redirect-song/<songid>")
 def redirect_song(songid):
     return redirect(f'/song/{songid}')
 
+
+@app.errorhandler(404)
+def not_found(error):
+    return render_template('error404.html')
+
+
+def get_genre_name(id_genre):
+    genre = db_sess.query(Genre).filter(Genre.id == id_genre).first()
+    return genre.name
 
 if __name__ == '__main__':
     main()

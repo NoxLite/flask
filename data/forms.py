@@ -6,7 +6,6 @@ import flask_wtf
 class LoginForm(flask_wtf.FlaskForm):
     email = StringField('Почта', validators=[DataRequired()])
     password = PasswordField('Пароль', validators=[DataRequired()])
-    remember_me = BooleanField('Запомнить меня')
     submit = SubmitField('Войти')
 
 
@@ -15,6 +14,7 @@ class RegisterForm(flask_wtf.FlaskForm):
     password = PasswordField('Пароль', validators=[DataRequired()])
     password_again = PasswordField('Пароль снова', validators=[DataRequired()])
     email = EmailField('Почта', validators=[DataRequired()])
+    about = StringField('Расскажи нам немного о себе!', validators=[DataRequired()])
     submit = SubmitField('Регистрация')
 
 
@@ -28,5 +28,4 @@ class AddSong(flask_wtf.FlaskForm):
     title = StringField('Название', validators=[DataRequired()])
     update = SubmitField('Обновить')
     public = SubmitField('Опубликовать')
-
 

@@ -10,7 +10,21 @@
     <div class="add-song-add-cover">
         <input type="file" class="form-control-file" id="photo" name="file" accept="image/png,image/jpeg">
     </div>
-    {{form.update}}
-    {{form.public}}
+<h3>Выбери жанр</h3>
+{% for elem in genres %}
+    {% if choosed == elem.id %}
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="genre" id={{choosed}} value={{elem.id}} checked>
+        <label class="form-check-label" for={{elem.id}}>{{elem.name}}</label>
+    </div>
+    {% else %}
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="genre" id={{elem.id}} value={{elem.id}}>
+        <label class="form-check-label" for={{elem.id}}>{{elem.name}}</label>
+    </div>
+    {% endif %}
+{% endfor %}
+{{form.update}} <br>
+{{form.public}}
 </form>
 {% endblock %}

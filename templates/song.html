@@ -1,7 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-<img src="{{song.cover}}" onerror="this.src='/static/inf/covers/classic.png'" width="200" height="200" >
-<h1>{{song.title}}</h1>
-<h2>{{author}}</h2>
+<p style="margin: 20px"><img src="{{song.cover}}" onerror="this.src='/static/inf/covers/classic.png'" width="350" height="350"
+style="float: right; border: 5px solid #8e939c;"></p>
+<div style="background-color: #5ab873; padding-bottom: 5px">
+<h1 style="color: black; vertical-align: middle; font-size: 56px; margin: 20px">{{song.title}}</h1>
+<a href={{song.user_link}}><h3 style="color: black; text-align: left; font-size: 32px; margin: 20px">{{author}}</h3></a>
+</div>
+<h1><span style="border: 3px solid #78a4eb; margin: 20px; color: #78a4eb; font-size: 24px;">{{get_genre_name(song.genre)}}</span></h1>
+<div style="margin: 20px;">
+    <h2>Ссылки</h2>
+    <p>Ссылок на данный момент нет, но скоро они появятся!</p>
+</div>
 {% endblock %}

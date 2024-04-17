@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
 <p style="display: flex;justify-content: center;"><img src={{user.avatar}} width="150px" height="150px" class="avatar"></p>
     {% if user.type_user == 'admin' %}
         <h1 style="display: flex;justify-content: center;">{{user.name}} (Админ)</h1>
@@ -9,16 +8,28 @@
         <h1 style="display: flex;justify-content: center;">{{user.name}}</h1>
     {% endif %}
 <h3 style="display: flex;justify-content: center;">{{user.about}}</h3>
-    <h1 style="display: flex;justify-content: center;">Последние записи</h1>
+
+{% if current_user.id == user.id %}
+<h1 style="text-align: center; color: black;">Настройки профиля</h1>
+<div class="user-posts">
+    <a href="change-image"><h1 style="text-align: center; color: black;">Изменить аватар профиля</h1></a>
+</div>
+<div class="user-posts">
+    <a href="change-genres"><h1 style="text-align: center; color: black;">Изменить предпочтения</h1></a>
+</div>
+<div class="user-posts">
+    <a href="/logout"><h1 style="text-align: center; color: black;">Выход</h1></a>
+</div>
+
+{% endif %}
+<h1 style="display: flex;justify-content: center;">Последние записи</h1>
     {% for elem in post[:3] %}
         <div class="user-posts">
             <h2>{{elem.title}}</h2>
             <p>{{elem.content}}</p>
-            <p>{{elem.created_date}}</p>
             <a href={{elem.post_link}}>Подробнее</a>
         </div>
     {% endfor %}
 <br>
     <a href="all_posts">Все посты</a><br>
-<a href="/logout">Выход</a>
 {% endblock %}
