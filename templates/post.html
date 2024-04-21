@@ -1,24 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Запись от {{user.name}}</h1>
-<h1>{{post.title}}</h1>
-<div>
+<div style="margin: 15px;">
+    <p style="text-align: center;"><img src={{get_avatar(post.user_id)}} width="100px" height="100px" style="border-radius: 100px"></p>
+<a href={{post.user_link}}><h3 style="text-align: center; color: black;">{{user.name}}</h3></a>
+<h1 style="text-align: center; color: black;">{{post.title}}</h1>
+<h2 style="text-align: center; color: black;">
     {{post.content}}
-</div>
-<div>
-    Лайков {{post.likes}}
-</div>
-{% if typeuser != "void" %}
+</h2>
+
 <form action="" method="post" novalidate>
-    {% if form.like.label.text == 'Нравится' %}
-        {{ form.like(class='post-liked') }}
-    {% else %}
-        {{ form.like(class='post-like') }}
-    {% endif %}
-    <a href="comment">Прокомментировать</a>
+    <a href="like" style="border-color: red">{{liketext}}</a>
+    <p>Лайков: {{post.likes}}</p>
 </form>
+    {% if current_user.id == post.user_id %}
+    <a href="delete">Удалить</a>
+    {% endif %}
 <h2>Комментарии</h2>
+    <a href="comment">Написать свой комментарий</a>
 {% for elem in comments[::-1] %}
 <div class="comment-post">
     <div style="display: flex; align-items: center;">
@@ -30,7 +29,5 @@
     </div>
 </div>
 {% endfor %}
-{% else %}
-<h2>Зарегистрируйся, чтобы оставлять комментарии и лайки!</h2>
-{% endif %}
+</div>
 {% endblock %}

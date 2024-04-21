@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div style="margin: 15px;">
 <img src={{imag}} onerror="this.src='/static/inf/covers/classic.png'" width="200" height="200">
 <p>{{form.title.label}}</p>
 {{ form.hidden_tag() }}
@@ -10,6 +11,12 @@
     <div class="add-song-add-cover">
         <input type="file" class="form-control-file" id="photo" name="file" accept="image/png,image/jpeg">
     </div>
+    {{form.link_spotify.label}}
+    {{form.link_spotify}}
+    {{form.link_yandex.label}}
+    {{form.link_yandex}}
+    {{form.link_youtube.label}}
+    {{form.link_youtube}}
 <h3>Выбери жанр</h3>
 {% for elem in genres %}
     {% if choosed == elem.id %}
@@ -27,4 +34,5 @@
 {{form.update}} <br>
 {{form.public}}
 </form>
+</div>
 {% endblock %}

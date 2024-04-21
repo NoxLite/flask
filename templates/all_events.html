@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="margin: 20px">
+<a href="head">Вернуться обратно</a>
+{% for elem in event %}
+<div >
+    <h2>{{elem.name}}</h2>
+        <p>{{elem.description}}</p>
+    <p>{{elem.date}}</p>
+    <a href="/redirect-event/{{elem.id}}">Подробнее</a>
+</div>
+    {% endfor %}
+    </div>
+{% endblock %}

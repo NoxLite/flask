@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div  style="margin: 20px">
 <a href="head">Вернуться обратно</a>
 {% for elem in post %}
 <div class="post">
@@ -10,4 +11,5 @@
     <a href={{elem.post_link}}>Подробнее</a>
 </div>
 {% endfor %}
+</div>
 {% endblock %}

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div style="margin: 20px">
 <p style="display: flex;justify-content: center;"><img src={{user.avatar}} width="150px" height="150px" class="avatar"></p>
     {% if user.type_user == 'admin' %}
         <h1 style="display: flex;justify-content: center;">{{user.name}} (Админ)</h1>
@@ -20,16 +21,40 @@
 <div class="user-posts">
     <a href="/logout"><h1 style="text-align: center; color: black;">Выход</h1></a>
 </div>
-
 {% endif %}
 <h1 style="display: flex;justify-content: center;">Последние записи</h1>
     {% for elem in post[:3] %}
-        <div class="user-posts">
+        <div class="start-post">
             <h2>{{elem.title}}</h2>
             <p>{{elem.content}}</p>
             <a href={{elem.post_link}}>Подробнее</a>
         </div>
     {% endfor %}
-<br>
-    <a href="all_posts">Все посты</a><br>
+    <div class="start-post">
+        <a href="all_posts"><h2 style="text-align: center; color: black;">Все посты</h2></a>
+    </div>
+    <h1 style="display: flex;justify-content: center;">Все песни</h1>
+    {% for item in song[:3] %}
+    <div class="start-song">
+        <p style="display: flex;justify-content: center;"><img src={{item.cover}} onerror="this.src='/static/inf/covers/classic.png'"
+            width="200px" height="200px"></p>
+        <a href="/redirect-song/{{item.id}}"><h2 style="text-align: center; color: black;">{{ item.title }}</h2></a>
+        <h3 style="text-align: center; color: black; margin-top: 15px;">{{get_author(item.user_id)}}</h3>
+    </div>
+    {% endfor %}
+    <div class="start-post">
+        <a href="all_songs"><h2 style="text-align: center; color: black;">Все песни</h2></a>
+    </div>
+    <h1 style="display: flex;justify-content: center;">Все мероприятия</h1>
+    {% for elem in event[:3] %}
+    <div class="start-concert">
+        <h2>{{elem.name}}</h2>
+        <p>{{elem.description}}</p>
+        <a href="/redirect-event/{{elem.id}}">Подробнее</a>
+    </div>
+    {% endfor %}
+    <div class="start-post">
+        <a href="all_events"><h2 style="text-align: center; color: black;">Все мероприятия</h2></a>
+    </div>
+</div>
 {% endblock %}

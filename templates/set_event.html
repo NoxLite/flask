@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="margin: 20px">
+    <h1 style="text-align: center">Создай мероприятие!</h1>
+    <p style="text-align: center"><img src={{map_file}} onerror="this.src='static/inf/buttons/if_not_found_create.png'" height="350" width="500"></p>
+    <form method="post" enctype="multipart/form-data">
+        <p style="text-align: center">Адрес</p>
+        <p style="text-align: center; color: red;">Всегда нажимайте на кнопку "Обновить", чтобы результат сохранялся корректно</p>
+        <div style="display: flex; justify-content: center;">
+            {{form.address}}
+            {{form.update}}<br>
+        </div>
+        <p style="text-align: center">Время проведения мероприятия</p>
+        <div style="display: flex; justify-content: center;">
+            {{form.data}}
+            {{form.time}}
+        </div>
+        <p style="text-align: center">Название мероприятия</p>
+        <div style="display: flex; justify-content: center;">
+            {{form.title}}
+            <br>
+            {{form.public}}
+        </div>
+
+    </form>
+</div>
+{% endblock %}

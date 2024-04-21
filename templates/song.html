@@ -10,6 +10,30 @@ style="float: right; border: 5px solid #8e939c;"></p>
 <h1><span style="border: 3px solid #78a4eb; margin: 20px; color: #78a4eb; font-size: 24px;">{{get_genre_name(song.genre)}}</span></h1>
 <div style="margin: 20px;">
     <h2>Ссылки</h2>
-    <p>Ссылок на данный момент нет, но скоро они появятся!</p>
+    {% if song.link_yandex != None %}
+    <a href="//{{song.link_yandex}}">Яндекс.Музыка</a>
+    {% endif %}
+    {% if song.link_spotify != None %}
+    <a href="//{{song.link_spotify}}">Spotify</a>
+    {% endif %}
+    {% if song.link_youtube != None %}
+    <a href="//{{song.link_youtube}}">YouTube</a>
+    {% endif %}
+</div>
+<div style="clear: both"></div>
+<div style="margin: 20px;">
+    <h1>Комментарии</h1>
+    <a href="comment">Написать свой комментарий</a>
+{% for elem in comments[::-1] %}
+<div class="comment-post">
+    <div style="display: flex; align-items: center;">
+        <img src={{get_avatar(elem.user_id)}} width="50px" height="50px" class="avatar">
+        <a href={{elem.get_user_link()}} style="margin-left: 20px">{{get_author(elem.user_id)}}</a>
+    </div>
+    <div>
+        <p style="word-wrap: break-word">{{elem.text[:400]}}</p>
+    </div>
+</div>
+{% endfor %}
 </div>
 {% endblock %}

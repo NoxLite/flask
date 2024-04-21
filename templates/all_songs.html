@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="margin: 20px">
+    <a href="head">Вернуться обратно</a><br>
+{% for item in song%}
+    <div class="start-song">
+        <p style="display: flex;justify-content: center;"><img src={{item.cover}} onerror="this.src='/static/inf/covers/classic.png'"
+            width="200px" height="200px"></p>
+        <a href="/redirect-song/{{item.id}}"><h2 style="text-align: center; color: black;">{{ item.title }}</h2></a>
+    </div>
+{% endfor %}
+</div>
+{% endblock %}

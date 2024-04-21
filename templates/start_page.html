@@ -5,7 +5,7 @@
 <h1 style="display: flex;justify-content: center;">Записи в блоге</h1>
 
 {% if typeuser != "void" %}
-<div class="start-posts">
+<div class="start-posts" style="margin: 15px;">
 <div class="start-post">
     <p style="display: flex;justify-content: center;"><img src="/static/inf/buttons/add_post.png" width="200px" height="200px"></p>
     <a href="/add_news"><h2 style="text-align: center; color: black;">Добавить новость</h2></a>
@@ -29,7 +29,7 @@
 {% endfor %}
 <h1 style="display: flex;justify-content: center;">Песни</h1>
 </div>
-<div class="start-songs">
+<div class="start-songs" style="margin: 15px;">
     <div class="start-song">
         <p style="display: flex;justify-content: center;"><img src="/static/inf/buttons/add_song.png" width="200px" height="200px"></p>
         <a href="/add_song"><h2 style="text-align: center; color: black;">Добавить песню</h2></a>
@@ -43,5 +43,37 @@
     </div>
 
     {% endfor %}
+</div>
+<h1 style="text-align: center; color: black; margin-top: 15px;">Мероприятия</h1>
+<div style="margin: 15px">
+    <div class="start-concert">
+        <p style="display: flex;justify-content: center;"><img src="/static/inf/buttons/add_event.png" width="200px" height="200px"></p>
+        <a href="/set_event"><h2 style="text-align: center; color: black;">Добавить мероприятие</h2></a>
+    </div>
+    {% for elem in concerts %}
+    <div class="start-concert">
+        <h2>{{elem.name}}</h2>
+        <p>{{elem.description}}</p>
+        <p>{{elem.date}}</p>
+        <a href="/redirect-event/{{elem.id}}">Подробнее</a>
+    </div>
+    {% endfor %}
+</div>
+<div class="recommendations" style="margin: 15px;">
+{% for elem1, elem2 in get_song_from_genre() %}
+<h1 style="text-align: center; color: black; margin-top: 15px;">Потому что тебе нравится {{elem1.name}}</h1>
+{% if len(elem2) != 0 %}
+{% for item in elem2[:5] %}
+    <div class="start-song">
+        <p style="display: flex;justify-content: center;"><img src={{item.cover}} onerror="this.src='/static/inf/covers/classic.png'"
+            width="200px" height="200px"></p>
+        <a href="/redirect-song/{{item.id}}"><h2 style="text-align: center; color: black;">{{ item.title }}</h2></a>
+        <h3 style="text-align: center; color: black; margin-top: 15px;">{{get_aut(item.user_id)}}</h3>
+    </div>
+{% endfor %}
+{% else %}
+<h3 style="text-align: center; color: black; margin-top: 15px;">Мы не нашли песни этого жанра</h3>
+{% endif %}
+{% endfor %}
 </div>
 {% endblock %}

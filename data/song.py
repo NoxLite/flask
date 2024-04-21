@@ -15,4 +15,7 @@ class Song(SqlAlchemyBase):
     cover = sqlalchemy.Column(sqlalchemy.String, default='pipstatic/inf/covers/classic.png')
     likes = sqlalchemy.Column(sqlalchemy.Integer)
     genre = sqlalchemy.Column(sqlalchemy.String, default='0')
+    link_spotify = sqlalchemy.Column(sqlalchemy.String, default=None)
+    link_yandex = sqlalchemy.Column(sqlalchemy.String, default=None)
+    link_youtube = sqlalchemy.Column(sqlalchemy.String, default=None)
     user = orm.relationship('User')
