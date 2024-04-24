@@ -1,3 +1,6 @@
+"""Таблица мероприятий"""
+
+
 import sqlalchemy
 from sqlalchemy import orm
 from data.user import User

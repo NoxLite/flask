@@ -1,3 +1,5 @@
+"""ФОРМЫ"""
+
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, EmailField, TextAreaField, DateField, TimeField
 from wtforms.validators import DataRequired
 import flask_wtf

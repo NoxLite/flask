@@ -1,9 +1,12 @@
+"""Комментарии к постам"""
+
 import sqlalchemy
 from sqlalchemy import orm
 from data.user import User
 import datetime
 from data import db_session
 from .db_session import SqlAlchemyBase
+
 
 class Comments(SqlAlchemyBase):
     __tablename__ = 'comments'

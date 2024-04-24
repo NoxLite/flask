@@ -1,3 +1,6 @@
+"""Таблица пользователя"""
+
+
 import sqlalchemy
 from sqlalchemy import orm
 import datetime

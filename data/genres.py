@@ -1,3 +1,6 @@
+"""Таблица жанров"""
+
+
 import sqlalchemy
 import sqlalchemy.orm as orm
 import datetime

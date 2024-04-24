@@ -1,7 +1,9 @@
+"""Таблица постов"""
+
+
 import sqlalchemy
 import sqlalchemy.orm as orm
 import datetime
-
 from .db_session import SqlAlchemyBase
 
 

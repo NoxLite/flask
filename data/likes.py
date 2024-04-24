@@ -1,3 +1,6 @@
+"""Таблица лайков"""
+
+
 import sqlalchemy
 from sqlalchemy import orm
 import datetime
